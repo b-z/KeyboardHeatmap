@@ -7,11 +7,19 @@
     <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-    #keyboard-img-container {
+    #keyboard-container {
+        position: relative;
         width: 100%;
     }
-    #keyboard-img-container img {
+    #keyboard-container img {
         width: 100%;
+    }
+    #heatmap {
+        position: absolute!important;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
     }
     </style>
 </head>
@@ -19,8 +27,10 @@
 <body>
 
     <main class="container">
-        <div id="keyboard-img-container">
+        <div id="keyboard-container">
             <img src="img/gal_2000_G80-3880_Aufsicht.png">
+            <div id="heatmap"></div>
+
         </div>
     </main>
 
@@ -30,6 +40,34 @@
 
     <script>
     $(document).ready(function() {
+        var heatmap = h337.create({
+            container: $('#heatmap')[0]
+        });
+
+        var points = [];
+        var max = 0;
+        var width = 840;
+        var height = 400;
+        var len = 200;
+
+        while (len--) {
+          var val = Math.floor(Math.random()*100);
+          max = Math.max(max, val);
+          var point = {
+            x: Math.floor(Math.random()*width),
+            y: Math.floor(Math.random()*height),
+            value: val
+          };
+          points.push(point);
+        }
+        // heatmap data format
+        var data = { 
+          max: max, 
+          data: points 
+        };
+        // if you have a set of datapoints always use setData instead of addData
+        // for data initialization
+        heatmap.setData(data);
     });
     
 
