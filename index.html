@@ -10,6 +10,7 @@
     #keyboard-container {
         position: relative;
         width: 100%;
+        line-height: 0;
     }
     #keyboard-container img {
         width: 100%;
@@ -21,6 +22,9 @@
         top: 0;
         left: 0;
     }
+    #heatmap canvas {
+        width: 100%;
+    }
     </style>
 </head>
 
@@ -30,41 +34,27 @@
         <div id="keyboard-container">
             <img src="img/gal_2000_G80-3880_Aufsicht.png">
             <div id="heatmap"></div>
-
         </div>
     </main>
 
     <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/heatmap.js"></script>
+    <script type="text/javascript" src="js/data.js"></script>
 
     <script>
     $(document).ready(function() {
         var heatmap = h337.create({
-            container: $('#heatmap')[0]
+            container: $('#heatmap')[0],
+            width: 1935,
+            height: 911
         });
 
-        var points = [];
-        var max = 0;
-        var width = 840;
-        var height = 400;
-        var len = 200;
-
-        while (len--) {
-          var val = Math.floor(Math.random()*100);
-          max = Math.max(max, val);
-          var point = {
-            x: Math.floor(Math.random()*width),
-            y: Math.floor(Math.random()*height),
-            value: val
-          };
-          points.push(point);
-        }
-        // heatmap data format
         var data = { 
-          max: max, 
-          data: points 
+            max: max, 
+            data: points 
         };
+        console.log(data, 1+points.length);
         // if you have a set of datapoints always use setData instead of addData
         // for data initialization
         heatmap.setData(data);
