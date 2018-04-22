@@ -16,6 +16,7 @@ function convert() {
 		// console.log(map);
 
 		var points = new Array();
+		var texts = new Array();
 		var max = 0;
 		for (var i = 0; i < map.length; i++) {
 			if (!map[i][0] || !map[i][4]) continue;
@@ -41,11 +42,13 @@ function convert() {
 					points.push({x: pp, y: qq, value: Math.floor(Math.random() * v)});
 				}
 			}
+			texts.push({x: x, y: y, w: w, h: h, value: v});
 			max = Math.max(max, map[i][4]);
 		}
 		var str = JSON.stringify(points);
 		str = "var points = " + str + ";\n";
-		str += "var max = " + max + ";";
+		str += "var max = " + max + ";\n";
+		str += "var texts = " + JSON.stringify(texts) + ";\n";
 		console.log(str);
 		var path = 'js/data.js';
 		fs.writeFile(path, str, function() {

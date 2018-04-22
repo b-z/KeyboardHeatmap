@@ -15,6 +15,14 @@
     #keyboard-container img {
         width: 100%;
     }
+    #keyboard-container .count {
+        position: absolute;
+        font-size: 1rem;
+        font-weight: bold;
+        text-align: center;
+        padding-top: 3%;
+        /*text-shadow: -0.5px -0.5px 0 white, 0.5px -0.5px 0 white, -0.5px 0.5px 0 white, 0.5px 0.5px 0 white;*/
+    }
     #heatmap {
         position: absolute!important;
         width: 100%;
@@ -24,6 +32,7 @@
     }
     #heatmap canvas {
         width: 100%;
+        opacity: 0.6;
     }
     </style>
 </head>
@@ -44,20 +53,32 @@
 
     <script>
     $(document).ready(function() {
+        var WIDTH = 1935;
+        var HEIGHT = 911;
         var heatmap = h337.create({
             container: $('#heatmap')[0],
-            width: 1935,
-            height: 911
+            width: WIDTH,
+            height: HEIGHT
         });
 
         var data = { 
-            max: max, 
+            max: max,
             data: points 
         };
-        console.log(data, 1+points.length);
-        // if you have a set of datapoints always use setData instead of addData
-        // for data initialization
         heatmap.setData(data);
+
+        for (var i = 0; i < texts.length; i++) {
+            var node = $('<div>');
+            node.text(texts[i].value);
+            var x = texts[i].x - texts[i].w / 2;
+            var y = texts[i].y - texts[i].h / 2;
+            node.css('left', 100 * x / WIDTH + '%');
+            node.css('top', 100 * y / HEIGHT + '%');
+            node.css('width', 100 * texts[i].w / WIDTH + '%');
+            node.css('height', 100 * texts[i].h / HEIGHT + '%');
+            node.addClass('count');
+            $('#keyboard-container').append(node);
+        }
     });
     
 
