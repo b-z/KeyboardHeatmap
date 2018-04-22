@@ -10,7 +10,7 @@ function convert() {
 			var t = d[i];
 			t = t.split(',');
 			var num = parseInt(t[t.length - 1]);
-			num = Math.floor(Math.log2(1 + num) * 100);
+			// num = Math.floor(Math.log2(1 + num) * 100);
 			map[i - 1].push(num);
 		}
 		// console.log(map);
@@ -18,12 +18,29 @@ function convert() {
 		var points = new Array();
 		var max = 0;
 		for (var i = 0; i < map.length; i++) {
-			if (!map[i][0]) continue;
-			points.push({
-				x: map[i][0],
-				y: map[i][1],
-				value: map[i][4]
-			});
+			if (!map[i][0] || !map[i][4]) continue;
+			// points.push({
+			// 	x: map[i][0],
+			// 	y: map[i][1],
+			// 	value: map[i][4]
+			// });
+			var x = map[i][0];
+			var y = map[i][1];
+			var w = map[i][2];
+			var h = map[i][3];
+			var v = map[i][4];
+			var space = 10;
+			var p = x;
+			while (p > x - w / 2) p -= space;
+			p += space;
+			var q = y;
+			while (q > y - h / 2) q -= space;
+			q += space;
+			for (var pp = p; pp < x + w / 2; pp += space) {
+				for (var qq = q; qq < y + h / 2; qq += space) {
+					points.push({x: pp, y: qq, value: Math.floor(Math.random() * v)});
+				}
+			}
 			max = Math.max(max, map[i][4]);
 		}
 		var str = JSON.stringify(points);
