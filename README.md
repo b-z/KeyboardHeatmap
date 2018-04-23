@@ -9,3 +9,5 @@ Usage:
 2. Run command `node csv2js.js`;
 3. Open `index.html` on your browser.
 
+
+![doc](img/doc.png)
