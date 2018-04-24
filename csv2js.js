@@ -1,7 +1,7 @@
 var fs = require("fs");
 
 function convert() {
-	fs.readFile('data/keyboard.csv', function(err, data) {
+	fs.readFile('data/whatpulse-keyboard-heatmap.csv', function(err, data) {
 		var d = data.toString();
 		d = d.split(/[\r\n]+/);
 		// console.log(d);
